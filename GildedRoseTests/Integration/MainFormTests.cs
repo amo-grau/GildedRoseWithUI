@@ -12,12 +12,12 @@ using FlaUI.Core.Overlay;
 
 namespace GildedRoseTests.Integration
 {
-    public class FormTests
+    public class MainFormTests
     {
         private Mock<UserRequestListener> userRequestListenerMock;
         private FormDriver formDriver;
 
-        public FormTests()
+        public MainFormTests()
         {
             userRequestListenerMock = new Mock<UserRequestListener>();
             var form = new MainForm(new Inventory());

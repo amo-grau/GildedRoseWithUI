@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GildedRoseTests.Unit.UI
+namespace GildedRoseTests.Unit
 {
     public class InventoryTests
     {
-        Inventory inventory = new ();
+        Inventory inventory = new();
         private Mock<InventoryListener> inventoryListenerMock = new Mock<InventoryListener>();
 
         public InventoryTests()

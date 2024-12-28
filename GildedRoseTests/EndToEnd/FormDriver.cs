@@ -32,8 +32,9 @@ namespace GildedRoseTests.EndToEnd
 
         public void showIsAdded(string itemName)
         {
-            var itemTextBox = FindControl<TextBox>("textBox1");
-            Assert.Equal(itemName, itemTextBox.Text);
+            var itemTable = FindControl<TableLayoutPanel>("itemsTable");
+            var lastTableControl = itemTable.Controls[itemTable.Controls.Count - 1];
+            Assert.Equal(itemName, lastTableControl.Text);
         }
 
         public void Close()
