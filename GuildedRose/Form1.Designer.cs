@@ -1,6 +1,6 @@
 ﻿namespace GuildedRose
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             itemTextBox = new TextBox();
-            itemLabel = new Label();
             addItemButton = new Button();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // itemTextBox
@@ -39,16 +39,6 @@
             itemTextBox.Name = "itemTextBox";
             itemTextBox.Size = new Size(125, 27);
             itemTextBox.TabIndex = 0;
-            // 
-            // itemLabel
-            // 
-            itemLabel.AutoSize = true;
-            itemLabel.Location = new Point(470, 68);
-            itemLabel.Name = "itemLabel";
-            itemLabel.Size = new Size(93, 20);
-            itemLabel.TabIndex = 1;
-            itemLabel.Text = "Hello World!";
-            itemLabel.Click += itemLabel_Click;
             // 
             // addItemButton
             // 
@@ -60,15 +50,22 @@
             addItemButton.UseVisualStyleBackColor = true;
             addItemButton.Click += addItemButton_Click;
             // 
-            // Form1
+            // textBox1
+            // 
+            textBox1.Location = new Point(479, 63);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(125, 27);
+            textBox1.TabIndex = 3;
+            // 
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(textBox1);
             Controls.Add(addItemButton);
-            Controls.Add(itemLabel);
             Controls.Add(itemTextBox);
-            Name = "Form1";
+            Name = "MainForm";
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);
@@ -78,7 +75,7 @@
         #endregion
 
         private TextBox itemTextBox;
-        private Label itemLabel;
         private Button addItemButton;
+        private TextBox textBox1;
     }
 }

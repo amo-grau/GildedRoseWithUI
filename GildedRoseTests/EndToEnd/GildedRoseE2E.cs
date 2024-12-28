@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GuildedRose;
+using GuildedRose.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,14 @@ namespace GildedRoseTests.EndToEnd
 {
     public class GildedRoseE2E : IAsyncLifetime
     {
-        private readonly ApplicationRunner application = new ();
+        private readonly Inventory inventory = new Inventory();
+        private readonly FormDriver driver;
+
+        public GildedRoseE2E()
+        {
+            driver = new FormDriver(new MainForm(inventory));
+        }
+
         public Task InitializeAsync()
         {
             // Do nothing
@@ -17,7 +26,7 @@ namespace GildedRoseTests.EndToEnd
 
         public Task DisposeAsync()
         {
-            application.Close();
+            driver.Close();
             return Task.CompletedTask;
         }
 
@@ -25,8 +34,8 @@ namespace GildedRoseTests.EndToEnd
         public void AnItemIsAddedToTheSystem()
         {
             var itemName = "an item";
-            application.AddItemToInventory(itemName);
-            application.ShowAddedItem(itemName);
+            driver.AddItem(itemName);
+            driver.showIsAdded(itemName);
         }
 
     }
