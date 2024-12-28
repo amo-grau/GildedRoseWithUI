@@ -21,11 +21,11 @@ namespace GildedRoseTests.Unit
         [Fact]
         public void AddItemWhenRequestedAndNotifyListeners()
         {
-            var itemName = "an item";
-            inventory.AddItemToInventory(itemName);
+            var item = new Item("anItem");
+            inventory.AddItemToInventory(item);
 
-            Assert.Equal(itemName, inventory.GetItemByName(itemName));
-            inventoryListenerMock.Verify(listener => listener.NewItemAdded(itemName), Times.Once);
+            Assert.Equal(item, inventory.GetItemByName(item.Name));
+            inventoryListenerMock.Verify(listener => listener.NewItemAdded(item), Times.Once);
         }
     }
 }

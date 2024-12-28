@@ -8,10 +8,10 @@ namespace GuildedRose.Model
 {
     public class Inventory : UserRequestListener
     {
-        private List<string> items = new List<string>();
+        private List<Item> items = new List<Item>();
         private List<InventoryListener> listeners = new List<InventoryListener>();
 
-        public void AddItemToInventory(string item)
+        public void AddItemToInventory(Item item)
         {
             items.Add(item);
             listeners.ForEach(listener => listener.NewItemAdded(item));
@@ -22,9 +22,9 @@ namespace GuildedRose.Model
             listeners.Add(listener);
         }
 
-        public string GetItemByName(string name)
+        public Item GetItemByName(string name)
         {
-            return items.Find(item => item == name) 
+            return items.Find(item => item.Name == name) 
                 ?? throw new ArgumentNullException("Could not find item with name: " + name);
         }
     }

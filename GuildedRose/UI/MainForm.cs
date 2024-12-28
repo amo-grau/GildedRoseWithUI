@@ -25,7 +25,7 @@ namespace GuildedRose
 
         private void addItemButton_Click(object sender, EventArgs e)
         {
-            listeners.ForEach(listener => listener.AddItemToInventory(itemTextBox.Text));
+            listeners.ForEach(listener => listener.AddItemToInventory(new Item(itemTextBox.Text)));
         }
     }
 }

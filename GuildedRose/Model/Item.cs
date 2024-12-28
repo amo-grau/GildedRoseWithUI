@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace GuildedRose.Model
 {
-    public interface InventoryListener
+    public record Item
     {
-        public void NewItemAdded(Item itemName);
+        public string Name { get; }
+
+        public Item(string name)
+        {
+            Name = name;
+        }
     }
 }

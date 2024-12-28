@@ -8,6 +8,6 @@ namespace GuildedRose.Model
 {
     public interface UserRequestListener
     {
-        public void AddItemToInventory(string item);
+        public void AddItemToInventory(Item item);
     }
 }

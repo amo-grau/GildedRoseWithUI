@@ -1,4 +1,5 @@
-﻿using GuildedRose.UI;
+﻿using GuildedRose.Model;
+using GuildedRose.UI;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -16,25 +17,25 @@ namespace GildedRoseTests.Unit.UI
         [Fact]
         public void AddItemRowWhenItemIsAdded()
         {
-            var anItem = "an item";
+            var anItem = new Item("anItem");
             
             tableModel.NewItemAdded(anItem);
 
-            Assert.Equal(anItem, tableModel.Controls[0].Text);
+            Assert.Equal(anItem.Name, tableModel.Controls[0].Text);
             Assert.Equal(1, tableModel.RowCount);
         }
 
         [Fact]
         public void ItemsAreInsertedAfterTheNextOne()
         {
-            var item1 = "item1";
-            var item2 = "item2";
+            var item1 = new Item("item1");
+            var item2 = new Item("item2");
 
             tableModel.NewItemAdded(item1);
             tableModel.NewItemAdded(item2);
 
-            Assert.Equal(item1, tableModel.Controls[0].Text);
-            Assert.Equal(item2, tableModel.Controls[1].Text);
+            Assert.Equal(item1.Name, tableModel.Controls[0].Text);
+            Assert.Equal(item2.Name, tableModel.Controls[1].Text);
         }
     }
 }

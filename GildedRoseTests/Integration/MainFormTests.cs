@@ -28,11 +28,11 @@ namespace GildedRoseTests.Integration
         [Fact]
         public void MakeUserRequestWhenAddButtonClicked()
         {
-            var itemText = "an item";
+            var item= new Item("an item");
             
-            formDriver.AddItem(itemText);
+            formDriver.AddItem(item.Name);
 
-            userRequestListenerMock.Verify(listener => listener.AddItemToInventory(itemText), Times.Once);
+            userRequestListenerMock.Verify(listener => listener.AddItemToInventory(item), Times.Once);
         }
     }
 }

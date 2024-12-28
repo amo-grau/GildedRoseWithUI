@@ -9,11 +9,11 @@ namespace GuildedRose.UI
 {
     public class InventoryTableModel : TableLayoutPanel, InventoryListener
     {
-        public void NewItemAdded(string itemName)
+        public void NewItemAdded(Item item)
         {
             var textBox = new TextBox
             {
-                Text = itemName,
+                Text = item.Name,
                 Dock = DockStyle.Fill
             };
 
