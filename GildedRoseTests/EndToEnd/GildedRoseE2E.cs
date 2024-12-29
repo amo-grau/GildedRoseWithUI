@@ -33,10 +33,9 @@ namespace GildedRoseTests.EndToEnd
         [Fact]
         public void AnItemIsAddedToTheSystem()
         {
-            var itemName = "an item";
-            driver.AddItem(itemName);
-            driver.showIsAdded(itemName);
+            var item = new Item("an item");
+            driver.AddItem(item);
+            driver.showIsAdded(item);
         }
-
     }
 }

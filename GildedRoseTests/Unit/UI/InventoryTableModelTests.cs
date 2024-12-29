@@ -21,7 +21,7 @@ namespace GildedRoseTests.Unit.UI
             
             tableModel.NewItemAdded(anItem);
 
-            Assert.Equal(anItem.Name, tableModel.Controls[0].Text);
+            Assert.Equal(anItem, tableModel.GetItemAt(0));
             Assert.Equal(1, tableModel.RowCount);
         }
 
@@ -34,8 +34,8 @@ namespace GildedRoseTests.Unit.UI
             tableModel.NewItemAdded(item1);
             tableModel.NewItemAdded(item2);
 
-            Assert.Equal(item1.Name, tableModel.Controls[0].Text);
-            Assert.Equal(item2.Name, tableModel.Controls[1].Text);
+            Assert.Equal(item1, tableModel.GetItemAt(0));
+            Assert.Equal(item2, tableModel.GetItemAt(1));
         }
     }
 }

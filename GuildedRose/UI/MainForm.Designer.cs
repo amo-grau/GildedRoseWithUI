@@ -54,8 +54,9 @@ namespace GuildedRose
             // 
             // itemsTable
             // 
-            itemsTable.ColumnCount = 1;
+            itemsTable.ColumnCount = 2;
             itemsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            itemsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 75F));
             itemsTable.ForeColor = SystemColors.ControlText;
             itemsTable.Location = new Point(242, 181);
             itemsTable.Name = "itemsTable";

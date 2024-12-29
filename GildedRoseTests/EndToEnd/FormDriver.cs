@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GuildedRose.Model;
+using GuildedRose.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
 namespace GildedRoseTests.EndToEnd
 {
@@ -18,23 +19,22 @@ namespace GildedRoseTests.EndToEnd
             form.Show();
         }
 
-        public void AddItem(string itemName)
+        public void AddItem(Item itemName)
         {
             var itemTextBox = FindControl<TextBox>("itemTextBox");
 
             itemTextBox.Clear();
-            itemTextBox.AppendText(itemName);
+            itemTextBox.AppendText(itemName.Name);
 
             var addItemButton = FindControl<Button>("addItemButton");
 
             addItemButton.PerformClick();
         }
 
-        public void showIsAdded(string itemName)
+        public void showIsAdded(Item item)
         {
-            var itemTable = FindControl<TableLayoutPanel>("itemsTable");
-            var lastTableControl = itemTable.Controls[itemTable.Controls.Count - 1];
-            Assert.Equal(itemName, lastTableControl.Text);
+            var itemTable = FindControl<InventoryTableModel>("itemsTable");
+            Assert.Equal(item, itemTable.GetItemAt(itemTable.RowCount - 1));
         }
 
         public void Close()

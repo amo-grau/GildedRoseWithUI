@@ -30,7 +30,7 @@ namespace GildedRoseTests.Integration
         {
             var item= new Item("an item");
             
-            formDriver.AddItem(item.Name);
+            formDriver.AddItem(item);
 
             userRequestListenerMock.Verify(listener => listener.AddItemToInventory(item), Times.Once);
         }

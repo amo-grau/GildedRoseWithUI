@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuildedRose.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace GildedRoseTests.EndToEnd
 {
     public interface ApplicationDriver
     {
-        public void AddItem(string itemName);
-        public void showIsAdded(string itemName);
+        public void AddItem(Item itemName);
+        public void showIsAdded(Item itemName);
         public void Close();
     }
 }

@@ -9,6 +9,7 @@ namespace GuildedRose.Model
     public record Item
     {
         public string Name { get; }
+        public int SellIn { get; init; } = 5;
 
         public Item(string name)
         {
