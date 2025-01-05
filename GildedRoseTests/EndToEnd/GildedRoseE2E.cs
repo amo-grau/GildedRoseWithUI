@@ -44,7 +44,7 @@ namespace GildedRoseTests.EndToEnd
             var item = new Item("an item");
             driver.AddItem(item);
 
-            driver.RemoveItem(0);
+            driver.RemoveItem(item.Name);
             driver.showIsRemoved(item);
         }
     }

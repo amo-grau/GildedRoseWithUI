@@ -31,10 +31,21 @@ namespace GildedRoseTests.EndToEnd
             addItemButton.PerformClick();
         }
 
+        public void RemoveItem(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public void showIsAdded(Item item)
         {
             var itemTable = FindControl<InventoryTableModel>("itemsTable");
             Assert.Equal(item, itemTable.GetItemAt(itemTable.RowCount - 1));
+        }
+
+
+        public void showIsRemoved(Item item)
+        {
+            throw new NotImplementedException();
         }
 
         public void Close()
@@ -45,16 +56,6 @@ namespace GildedRoseTests.EndToEnd
         private T FindControl<T>(string name) where T : Control
         {
             return (T)form.Controls.Find(name, true).First();
-        }
-
-        internal void RemoveItem(int v)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void showIsRemoved(Item item)
-        {
-            throw new NotImplementedException();
         }
     }
 }
