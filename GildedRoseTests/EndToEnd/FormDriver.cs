@@ -33,19 +33,22 @@ namespace GildedRoseTests.EndToEnd
 
         public void RemoveItem(string name)
         {
-            throw new NotImplementedException();
+            var removeButtonName = name + "RemoveButton";
+            var removeButton = FindControl<Button>(removeButtonName);
+            removeButton.PerformClick();
         }
 
-        public void showIsAdded(Item item)
+        public void showIsListed(Item item)
         {
             var itemTable = FindControl<InventoryTableModel>("itemsTable");
             Assert.Equal(item, itemTable.GetItemAt(itemTable.RowCount - 1));
         }
 
 
-        public void showIsRemoved(Item item)
+        public void showIsNotListed(Item item)
         {
-            throw new NotImplementedException();
+            var itemTable = FindControl<InventoryTableModel>("itemsTable");
+            Assert.DoesNotContain(item, itemTable.Items);
         }
 
         public void Close()

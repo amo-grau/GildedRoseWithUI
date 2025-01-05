@@ -9,6 +9,8 @@ namespace GuildedRose.UI
 {
     public class InventoryTableModel : TableLayoutPanel, InventoryListener
     {
+        public IReadOnlyList<Item> Items { get; }
+
         public void NewItemAdded(Item item)
         {
             foreach ((var type, var text) in ItemModel.From(item).displayedProperties) // todo: replace ItemModel by creating controls individually

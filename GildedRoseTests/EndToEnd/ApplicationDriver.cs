@@ -10,7 +10,7 @@ namespace GildedRoseTests.EndToEnd
     public interface ApplicationDriver
     {
         public void AddItem(Item itemName);
-        public void showIsAdded(Item itemName);
+        public void showIsListed(Item itemName);
         public void Close();
     }
 }

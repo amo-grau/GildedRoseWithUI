@@ -35,7 +35,7 @@ namespace GildedRoseTests.EndToEnd
         {
             var item = new Item("an item");
             driver.AddItem(item);
-            driver.showIsAdded(item);
+            driver.showIsListed(item);
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace GildedRoseTests.EndToEnd
             driver.AddItem(item);
 
             driver.RemoveItem(item.Name);
-            driver.showIsRemoved(item);
+            driver.showIsNotListed(item);
         }
     }
 }
