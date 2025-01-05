@@ -36,11 +36,5 @@ namespace GildedRoseTests.Unit.UI
                 Assert.Equal(item, tableModel.GetItemAt(index));
             }
         }
-        
-        [Fact]
-        public void ColumnCountMatchesDisplayedProperties()
-        {
-
-        }
     }
 }

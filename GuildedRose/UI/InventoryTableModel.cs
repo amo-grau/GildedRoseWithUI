@@ -10,6 +10,11 @@ namespace GuildedRose.UI
 {
     public class InventoryTableModel : TableLayoutPanel, InventoryListener
     {
+        public InventoryTableModel() 
+        {
+            ColumnCount = Enum.GetNames(typeof(DisplayedItemProperties)).Length;
+        }
+
         public void NewItemAdded(Item item)
         {
             foreach ((var displayedProperty, var control) in ItemModel.From(item).displayedProperties)
@@ -56,9 +61,9 @@ namespace GuildedRose.UI
                 displayedProperties =
                     new Dictionary<DisplayedItemProperties, Control>()
                     {
-                        { DisplayedItemProperties.Name, new TextBox { Text = name } },
-                        { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn } },
-                        { DisplayedItemProperties.RemoveButton, new Button() { Name = name + "RemoveButton" } }
+                        { DisplayedItemProperties.Name, new TextBox { Text = name, ReadOnly = true } },
+                        { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn, ReadOnly = true } },
+                        { DisplayedItemProperties.RemoveButton, new Button() { Name = name + "RemoveButton", Text = "Remove", AutoSize = true } }
                     };
             }
 
