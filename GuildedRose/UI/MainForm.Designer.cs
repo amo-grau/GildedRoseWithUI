@@ -56,7 +56,7 @@ namespace GuildedRose
             // 
             itemsTable.AutoSize = true;
             itemsTable.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            itemsTable.ColumnCount = 2;
+            itemsTable.ColumnCount = 3;
             itemsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             itemsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 75F));
             itemsTable.ForeColor = SystemColors.ControlText;
