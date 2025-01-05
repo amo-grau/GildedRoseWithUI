@@ -37,16 +37,16 @@ namespace GuildedRose
             // 
             // itemTextBox
             // 
-            itemTextBox.Location = new Point(26, 51);
+            itemTextBox.Location = new Point(126, 48);
             itemTextBox.Name = "itemTextBox";
             itemTextBox.Size = new Size(261, 27);
             itemTextBox.TabIndex = 0;
             // 
             // addItemButton
             // 
-            addItemButton.Location = new Point(356, 49);
+            addItemButton.Location = new Point(457, 48);
             addItemButton.Name = "addItemButton";
-            addItemButton.Size = new Size(94, 29);
+            addItemButton.Size = new Size(94, 27);
             addItemButton.TabIndex = 2;
             addItemButton.Text = "Add Item";
             addItemButton.UseVisualStyleBackColor = true;
