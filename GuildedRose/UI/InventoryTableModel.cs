@@ -43,7 +43,8 @@ namespace GuildedRose.UI
         private enum DisplayedItemProperties
         {
             Name = 0,
-            SellIn
+            SellIn,
+            RemoveButton
         }
 
         private record ItemModel
@@ -56,7 +57,8 @@ namespace GuildedRose.UI
                     new Dictionary<DisplayedItemProperties, Control>()
                     {
                         { DisplayedItemProperties.Name, new TextBox { Text = name } },
-                        { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn } }
+                        { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn } },
+                        { DisplayedItemProperties.RemoveButton, new Button() { Name = name + "RemoveButton" } }
                     };
             }
 
