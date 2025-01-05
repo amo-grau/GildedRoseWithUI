@@ -26,16 +26,15 @@ namespace GildedRoseTests.Unit.UI
         }
 
         [Fact]
-        public void ItemsAreInsertedAfterTheNextOne()
+        public void InsertMultipleItems()
         {
-            var item1 = new Item("item1");
-            var item2 = new Item("item2");
+            foreach (var index  in Enumerable.Range(0, 5))
+            {
+                var item = new Item(index.ToString());
+                tableModel.NewItemAdded(item);
 
-            tableModel.NewItemAdded(item1);
-            tableModel.NewItemAdded(item2);
-
-            Assert.Equal(item1, tableModel.GetItemAt(0));
-            Assert.Equal(item2, tableModel.GetItemAt(1));
+                Assert.Equal(item, tableModel.GetItemAt(index));
+            }
         }
     }
 }

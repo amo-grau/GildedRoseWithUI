@@ -54,21 +54,24 @@ namespace GuildedRose
             // 
             // itemsTable
             // 
+            itemsTable.AutoSize = true;
+            itemsTable.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             itemsTable.ColumnCount = 2;
             itemsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             itemsTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 75F));
             itemsTable.ForeColor = SystemColors.ControlText;
-            itemsTable.Location = new Point(242, 181);
+            itemsTable.Location = new Point(26, 117);
             itemsTable.Name = "itemsTable";
             itemsTable.RowCount = 1;
             itemsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            itemsTable.Size = new Size(250, 125);
+            itemsTable.Size = new Size(75, 0);
             itemsTable.TabIndex = 4;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             ClientSize = new Size(800, 450);
             Controls.Add(itemsTable);
             Controls.Add(addItemButton);

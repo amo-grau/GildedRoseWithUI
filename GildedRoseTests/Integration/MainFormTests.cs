@@ -34,5 +34,11 @@ namespace GildedRoseTests.Integration
 
             userRequestListenerMock.Verify(listener => listener.AddItemToInventory(item), Times.Once);
         }
+
+        [Fact]
+        public void MultipleItemsCanBeDisplayed()
+        {
+
+        }
     }
 }
