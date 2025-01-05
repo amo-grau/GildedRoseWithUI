@@ -31,7 +31,7 @@ namespace GildedRoseTests.EndToEnd
         }
 
         [Fact]
-        public void AnItemIsAddedToTheSystem()
+        public void AnItemIsAdded()
         {
             var item = new Item("an item");
             driver.AddItem(item);
@@ -39,7 +39,7 @@ namespace GildedRoseTests.EndToEnd
         }
 
         [Fact]
-        public void AnItemIsRemovedFromTheSystem()
+        public void AnItemIsRemoved()
         {
             var item = new Item("an item");
             driver.AddItem(item);
