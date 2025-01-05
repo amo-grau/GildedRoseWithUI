@@ -11,13 +11,12 @@ namespace GuildedRose.UI
     {
         public void NewItemAdded(Item item)
         {
-            RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
-
-            foreach ((var type, var text) in ItemModel.From(item).properties) // todo: replace ItemModel by creating controls individually
+            foreach ((var type, var text) in ItemModel.From(item).displayedProperties) // todo: replace ItemModel by creating controls individually
             {
                 AddTextBoxControl(text, type);
             }
 
+            RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
             RowCount++;
         }
 
@@ -58,11 +57,11 @@ namespace GuildedRose.UI
 
         private record ItemModel
         {
-            public readonly IReadOnlyDictionary<DisplayedItemProperties, string> properties;
+            public readonly IReadOnlyDictionary<DisplayedItemProperties, string> displayedProperties;
 
             private ItemModel(string name, string sellIn)
             {
-                 properties =
+                 displayedProperties =
                     new Dictionary<DisplayedItemProperties, string>()
                     {
                         { DisplayedItemProperties.Name, name},
