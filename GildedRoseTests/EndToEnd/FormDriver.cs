@@ -46,5 +46,15 @@ namespace GildedRoseTests.EndToEnd
         {
             return (T)form.Controls.Find(name, true).First();
         }
+
+        internal void RemoveItem(int v)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void showIsRemoved(Item item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

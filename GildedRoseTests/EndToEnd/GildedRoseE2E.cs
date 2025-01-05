@@ -37,5 +37,15 @@ namespace GildedRoseTests.EndToEnd
             driver.AddItem(item);
             driver.showIsAdded(item);
         }
+
+        [Fact]
+        public void AnItemIsRemovedFromTheSystem()
+        {
+            var item = new Item("an item");
+            driver.AddItem(item);
+
+            driver.RemoveItem(0);
+            driver.showIsRemoved(item);
+        }
     }
 }
