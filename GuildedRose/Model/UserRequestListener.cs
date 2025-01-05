@@ -9,5 +9,6 @@ namespace GuildedRose.Model
     public interface UserRequestListener
     {
         public void AddItemToInventory(Item item);
+        void RemovedItemFromInventory(string name);
     }
 }

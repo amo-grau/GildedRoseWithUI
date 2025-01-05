@@ -27,5 +27,10 @@ namespace GuildedRose.Model
             return items.Find(item => item.Name == name) 
                 ?? throw new ArgumentNullException("Could not find item with name: " + name);
         }
+
+        public void RemovedItemFromInventory(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
