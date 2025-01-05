@@ -11,41 +11,71 @@ namespace GuildedRose.UI
     {
         public void NewItemAdded(Item item)
         {
-            AddTextBoxControl(item.Name, DisplayedItemProperties.Name);
-            AddTextBoxControl(item.SellIn.ToString(), DisplayedItemProperties.SellIn);
+            RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
+
+            foreach ((var type, var text) in ItemModel.From(item).properties) // todo: replace ItemModel by creating controls individually
+            {
+                AddTextBoxControl(text, type);
+            }
 
             RowCount++;
-            RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
         }
 
         public Item GetItemAt(int row)
         {
-            var lastItemName = GetControlAt(DisplayedItemProperties.Name, row);
-            var lastItemSellIn = GetControlAt(DisplayedItemProperties.SellIn, row);
+            var controlsText = GetControlsAt(row).Select(control => control.Text).ToList();
 
-            return new Item(lastItemName.Text) { SellIn = int.Parse(lastItemSellIn.Text) };
+            return new Item(controlsText[(int)DisplayedItemProperties.Name])
+                    with { SellIn = int.Parse(controlsText[(int)DisplayedItemProperties.SellIn]) };
         }
 
-        private Control GetControlAt(DisplayedItemProperties property, int row)
+        private IEnumerable<Control> GetControlsAt(int rowIndex)
         {
-            return GetControlFromPosition((int)property, row)
-                ?? throw new ArgumentNullException($"Trying to parse non-existent item property: {property}, at item number: {row}");
+            foreach (Control control in Controls)
+            {
+                if (GetRow(control) == rowIndex)
+                {
+                    yield return control;
+                }
+            }
         }
 
-        private void AddTextBoxControl(string text, DisplayedItemProperties property)
+        private void AddTextBoxControl(string text, DisplayedItemProperties propertyIndex)
         {
             var textBox = new TextBox
             {
                 Text = text
             };
 
-            Controls.Add(textBox, (int)property, RowCount);
+            Controls.Add(textBox, (int)propertyIndex, RowCount);
         }
 
         private enum DisplayedItemProperties
         {
             Name = 0,
             SellIn
+        }
+
+        private record ItemModel
+        {
+            public readonly IReadOnlyDictionary<DisplayedItemProperties, string> properties;
+
+            private ItemModel(string name, string sellIn)
+            {
+                 properties =
+                    new Dictionary<DisplayedItemProperties, string>()
+                    {
+                        { DisplayedItemProperties.Name, name},
+                        { DisplayedItemProperties.SellIn, sellIn }
+                    };
+            }
+
+            private ItemModel(Item item) : this(item.Name, item.SellIn.ToString()) { }
+
+            public static ItemModel From(Item item)
+            {
+                return new ItemModel(item);
+            }
         }
     }
 }
