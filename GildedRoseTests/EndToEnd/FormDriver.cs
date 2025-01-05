@@ -44,11 +44,15 @@ namespace GildedRoseTests.EndToEnd
             Assert.Equal(item, itemTable.GetItemAt(itemTable.RowCount - 1));
         }
 
-
         public void showIsNotListed(Item item)
         {
             var itemTable = FindControl<InventoryTableModel>("itemsTable");
-            Assert.DoesNotContain(item, itemTable.Items);
+
+            var items = Enumerable.Range(0, itemTable.RowCount)
+                .Select(i => itemTable.GetItemAt(i))
+                .ToList();
+
+            Assert.DoesNotContain(item, items);
         }
 
         public void Close()
