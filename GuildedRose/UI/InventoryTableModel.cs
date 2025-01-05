@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GuildedRose.UI
 {
@@ -11,9 +12,9 @@ namespace GuildedRose.UI
     {
         public void NewItemAdded(Item item)
         {
-            foreach ((var type, var text) in ItemModel.From(item).displayedProperties) // todo: replace ItemModel by creating controls individually
+            foreach ((var displayedProperty, var control) in ItemModel.From(item).displayedProperties)
             {
-                AddTextBoxControl(text, type);
+                Controls.Add(control, (int)displayedProperty, RowCount); // todo: it could maybe be done with a list without using the enum
             }
 
             RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
@@ -39,16 +40,6 @@ namespace GuildedRose.UI
             }
         }
 
-        private void AddTextBoxControl(string text, DisplayedItemProperties propertyIndex)
-        {
-            var textBox = new TextBox
-            {
-                Text = text
-            };
-
-            Controls.Add(textBox, (int)propertyIndex, RowCount);
-        }
-
         private enum DisplayedItemProperties
         {
             Name = 0,
@@ -57,15 +48,15 @@ namespace GuildedRose.UI
 
         private record ItemModel
         {
-            public readonly IReadOnlyDictionary<DisplayedItemProperties, string> displayedProperties;
+            public readonly IReadOnlyDictionary<DisplayedItemProperties, Control> displayedProperties;
 
             private ItemModel(string name, string sellIn)
             {
-                 displayedProperties =
-                    new Dictionary<DisplayedItemProperties, string>()
+                displayedProperties =
+                    new Dictionary<DisplayedItemProperties, Control>()
                     {
-                        { DisplayedItemProperties.Name, name},
-                        { DisplayedItemProperties.SellIn, sellIn }
+                        { DisplayedItemProperties.Name, new TextBox { Text = name } },
+                        { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn } }
                     };
             }
 
