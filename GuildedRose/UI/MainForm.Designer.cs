@@ -62,7 +62,7 @@ namespace GuildedRose
             itemsTable.ForeColor = SystemColors.ControlText;
             itemsTable.Location = new Point(26, 117);
             itemsTable.Name = "itemsTable";
-            itemsTable.RowCount = 1;
+            itemsTable.RowCount = 0;
             itemsTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             itemsTable.Size = new Size(75, 0);
             itemsTable.TabIndex = 4;
