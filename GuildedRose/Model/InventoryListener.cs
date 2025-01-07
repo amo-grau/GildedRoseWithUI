@@ -9,5 +9,6 @@ namespace GuildedRose.Model
     public interface InventoryListener
     {
         public void NewItemAdded(Item itemName);
+        public void ItemRemoved(Item itemName);
     }
 }

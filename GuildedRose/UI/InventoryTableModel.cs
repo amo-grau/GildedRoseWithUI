@@ -52,6 +52,11 @@ namespace GuildedRose.UI
             }
         }
 
+        public void ItemRemoved(Item itemName)
+        {
+            throw new NotImplementedException();
+        }
+
         private enum DisplayedItemProperties
         {
             Name = 0,
