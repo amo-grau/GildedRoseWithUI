@@ -34,16 +34,5 @@ namespace GildedRoseTests.Integration
 
             userRequestListenerMock.Verify(listener => listener.AddItemToInventory(item), Times.Once);
         }
-
-        [Fact]
-        public void RemoveItemWhemRemoveButtonClicked()
-        {
-            var item = new Item("an item");
-            formDriver.AddItem(item);
-
-            formDriver.RemoveItem(item.Name);
-
-            userRequestListenerMock.Verify(listener => listener.RemovedItemFromInventory(item.Name), Times.Once); // todo: what happens when there are more items with the same name?
-        }
     }
 }

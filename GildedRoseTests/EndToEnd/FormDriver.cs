@@ -49,7 +49,7 @@ namespace GildedRoseTests.EndToEnd
             var itemTable = FindControl<InventoryTableModel>("itemsTable");
 
             var items = Enumerable.Range(0, itemTable.RowCount)
-                .Select(i => itemTable.GetItemAt(i))
+                .Select(itemTable.GetItemAt)
                 .ToList();
 
             Assert.DoesNotContain(item, items);
