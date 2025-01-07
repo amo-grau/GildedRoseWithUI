@@ -10,7 +10,9 @@ namespace GuildedRose.UI
 {
     public class InventoryTableModel : TableLayoutPanel, InventoryListener
     {       
-        public InventoryTableModel(UserRequestListener listener) 
+        private IReadOnlyCollection<UserRequestListener> listeners = new List<UserRequestListener>();
+
+        public InventoryTableModel()
         {
             ColumnCount = Enum.GetNames(typeof(DisplayedItemProperties)).Length;
         }
@@ -32,6 +34,11 @@ namespace GuildedRose.UI
 
             return new Item(controlsText[(int)DisplayedItemProperties.Name])
                     with { SellIn = int.Parse(controlsText[(int)DisplayedItemProperties.SellIn]) };
+        }
+
+        public void AddListener(UserRequestListener listener) 
+        {
+            listeners = listeners.Append(listener).ToArray();
         }
 
         private IEnumerable<Control> GetControlsAt(int rowIndex)

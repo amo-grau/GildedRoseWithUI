@@ -12,8 +12,13 @@ namespace GildedRoseTests.Unit.UI
 {
     public class InventoryTableModelTests
     {
-        private readonly InventoryTableModel tableModel = new (null);
+        private readonly InventoryTableModel tableModel = new ();
         private Mock<UserRequestListener> userRequestListenerMock = new ();
+
+        public InventoryTableModelTests()
+        {
+            tableModel.AddListener(userRequestListenerMock.Object);
+        }
 
         [Fact]
         public void AddItemRowWhenItemIsAdded()

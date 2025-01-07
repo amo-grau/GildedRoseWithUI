@@ -32,7 +32,7 @@ namespace GuildedRose
         {
             itemTextBox = new TextBox();
             addItemButton = new Button();
-            itemsTable = new InventoryTableModel(null);
+            itemsTable = new InventoryTableModel();
             SuspendLayout();
             // 
             // itemTextBox
