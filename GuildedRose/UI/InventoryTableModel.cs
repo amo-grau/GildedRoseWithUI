@@ -19,7 +19,7 @@ namespace GuildedRose.UI
 
         public void NewItemAdded(Item item)
         {
-            foreach ((var displayedProperty, var control) in ItemModel.From(item).displayedProperties)
+            foreach ((var displayedProperty, var control) in ItemModel.From(item, listeners).displayedProperties)
             {
                 Controls.Add(control, (int)displayedProperty, RowCount); // todo: it could maybe be done with a list without using the enum
             }
@@ -62,23 +62,36 @@ namespace GuildedRose.UI
         private record ItemModel
         {
             public readonly IReadOnlyDictionary<DisplayedItemProperties, Control> displayedProperties;
-
-            private ItemModel(string name, string sellIn)
+            private IReadOnlyCollection<UserRequestListener> listeners = new List<UserRequestListener>();
+            
+            private ItemModel(string name, string sellIn, IReadOnlyCollection<UserRequestListener> listeners)
             {
+                this.listeners = listeners;
+                var removeButton = new Button() { Name = name + "RemoveButton", Text = "Remove", AutoSize = true };
+                removeButton.Click += (_,_) => NotifyListeners();
+
                 displayedProperties =
                     new Dictionary<DisplayedItemProperties, Control>()
                     {
                         { DisplayedItemProperties.Name, new TextBox { Text = name, ReadOnly = true } },
                         { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn, ReadOnly = true } },
-                        { DisplayedItemProperties.RemoveButton, new Button() { Name = name + "RemoveButton", Text = "Remove", AutoSize = true } }
+                        { DisplayedItemProperties.RemoveButton, removeButton }
                     };
             }
 
-            private ItemModel(Item item) : this(item.Name, item.SellIn.ToString()) { }
+            private ItemModel(Item item, IReadOnlyCollection<UserRequestListener> listeners) : this(item.Name, item.SellIn.ToString(), listeners) { }
 
-            public static ItemModel From(Item item)
+            public static ItemModel From(Item item, IReadOnlyCollection<UserRequestListener> listeners)
             {
-                return new ItemModel(item);
+                return new ItemModel(item, listeners);
+            }
+
+            public void NotifyListeners()
+            {
+                foreach (var listener in listeners)
+                {
+                    listener.RemovedItemFromInventory(displayedProperties[DisplayedItemProperties.Name].Text);
+                }
             }
         }
     }
