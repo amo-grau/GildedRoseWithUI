@@ -12,7 +12,8 @@ namespace GildedRoseTests.Unit.UI
 {
     public class InventoryTableModelTests
     {
-        private readonly InventoryTableModel tableModel = new ();
+        private readonly InventoryTableModel tableModel = new (null);
+        private Mock<UserRequestListener> userRequestListenerMock = new ();
 
         [Fact]
         public void AddItemRowWhenItemIsAdded()
@@ -35,6 +36,19 @@ namespace GildedRoseTests.Unit.UI
 
                 Assert.Equal(item, tableModel.GetItemAt(index));
             }
+        }
+
+        [Fact]
+        public void NotifiesListenersWhenRemoveButtonClicked()
+        {
+            var item = new Item("anItem");
+            tableModel.NewItemAdded(item);
+            var removeButton = tableModel.Controls.Find($"{item.Name}RemoveButton", false).First() as Button 
+                ?? throw new ArgumentNullException();
+
+            removeButton.PerformClick();
+
+            userRequestListenerMock.Verify(listener => listener.RemovedItemFromInventory(item.Name), Times.Once);
         }
     }
 }

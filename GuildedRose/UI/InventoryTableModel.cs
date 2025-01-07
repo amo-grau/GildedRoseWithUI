@@ -9,8 +9,8 @@ using static System.Net.Mime.MediaTypeNames;
 namespace GuildedRose.UI
 {
     public class InventoryTableModel : TableLayoutPanel, InventoryListener
-    {
-        public InventoryTableModel() 
+    {       
+        public InventoryTableModel(UserRequestListener listener) 
         {
             ColumnCount = Enum.GetNames(typeof(DisplayedItemProperties)).Length;
         }
