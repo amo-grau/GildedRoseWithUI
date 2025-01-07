@@ -34,8 +34,10 @@ namespace GildedRoseTests.Unit
             var item = new Item("anItem");
             inventory.AddItemToInventory(item);
 
-            Assert.Equal(item, inventory.GetItemByName(item.Name));
-            inventoryListenerMock.Verify(listener => listener.NewItemAdded(item), Times.Once);
+            inventory.RemoveItemFromInventory(item);
+
+            Assert.DoesNotContain(item, inventory.Items);
+            inventoryListenerMock.Verify(listener => listener.ItemRemoved(item), Times.Once);
         }
     }
 }

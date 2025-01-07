@@ -11,7 +11,9 @@ namespace GuildedRose
         {
             InitializeComponent();
             inventory.AddInventoryListener(itemsTable);
+            
             AddListener(inventory);
+            itemsTable.AddListener(inventory);
         }
 
         public void AddListener(UserRequestListener listener)

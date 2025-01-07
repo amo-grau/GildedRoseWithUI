@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace GuildedRose.UI
 {
@@ -52,9 +54,44 @@ namespace GuildedRose.UI
             }
         }
 
-        public void ItemRemoved(Item itemName)
+        public void ItemRemoved(Item item)
         {
-            throw new NotImplementedException();
+            var nameControl = Controls.Find(item.Name, false).First();
+            var row = GetRow(nameControl);
+
+            // Step 1: Remove controls in the specified row
+            for (int i = ColumnCount - 1; i >= 0; i--)
+            {
+                var control = GetControlFromPosition(i, row);
+
+                if (control != null)
+                {
+                    Controls.Remove(control);
+                    control.Dispose();
+                }
+            }
+
+            // Step 2: Shift controls in rows below the removed row up by one
+            for (int i = row + 1; i < RowCount; i++)
+            {
+                for (int j = 0; j < ColumnCount; j++)
+                {
+                    var control = GetControlFromPosition(j, i);
+                    if (control != null)
+                    {
+                        SetRow(control, i - 1);
+                    }
+                }
+            }
+
+            // Step 3: Remove the last row style
+            if (RowStyles.Count > row)
+            {
+                RowStyles.RemoveAt(row);
+            }
+
+            // Step 4: Update RowCount
+            RowCount--;
         }
 
         private enum DisplayedItemProperties
@@ -68,7 +105,8 @@ namespace GuildedRose.UI
         {
             public readonly IReadOnlyDictionary<DisplayedItemProperties, Control> displayedProperties;
             private IReadOnlyCollection<UserRequestListener> listeners = new List<UserRequestListener>();
-            
+            private Item modeledItem;
+
             private ItemModel(string name, string sellIn, IReadOnlyCollection<UserRequestListener> listeners)
             {
                 this.listeners = listeners;
@@ -78,10 +116,12 @@ namespace GuildedRose.UI
                 displayedProperties =
                     new Dictionary<DisplayedItemProperties, Control>()
                     {
-                        { DisplayedItemProperties.Name, new TextBox { Text = name, ReadOnly = true } },
+                        { DisplayedItemProperties.Name, new TextBox { Name = name, Text = name, ReadOnly = true } },
                         { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn, ReadOnly = true } },
                         { DisplayedItemProperties.RemoveButton, removeButton }
                     };
+
+                modeledItem = new Item(name) with { SellIn = int.Parse(sellIn) };
             }
 
             private ItemModel(Item item, IReadOnlyCollection<UserRequestListener> listeners) : this(item.Name, item.SellIn.ToString(), listeners) { }
@@ -95,7 +135,7 @@ namespace GuildedRose.UI
             {
                 foreach (var listener in listeners)
                 {
-                    listener.RemovedItemFromInventory(displayedProperties[DisplayedItemProperties.Name].Text);
+                    listener.RemoveItemFromInventory(modeledItem);
                 }
             }
         }

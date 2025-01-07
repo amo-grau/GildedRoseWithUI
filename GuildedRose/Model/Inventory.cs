@@ -11,10 +11,18 @@ namespace GuildedRose.Model
         private List<Item> items = new List<Item>();
         private List<InventoryListener> listeners = new List<InventoryListener>();
 
+        public IReadOnlyList<Item> Items { get => items; }
+
         public void AddItemToInventory(Item item)
         {
             items.Add(item);
             listeners.ForEach(listener => listener.NewItemAdded(item));
+        }
+
+        public void RemoveItemFromInventory(Item item)
+        {
+            items.Remove(item);
+            listeners.ForEach(listener => listener.ItemRemoved(item));
         }
 
         public void AddInventoryListener(InventoryListener listener) 
@@ -26,11 +34,6 @@ namespace GuildedRose.Model
         {
             return items.Find(item => item.Name == name) 
                 ?? throw new ArgumentNullException("Could not find item with name: " + name);
-        }
-
-        public void RemovedItemFromInventory(string name)
-        {
-            throw new NotImplementedException();
         }
     }
 }

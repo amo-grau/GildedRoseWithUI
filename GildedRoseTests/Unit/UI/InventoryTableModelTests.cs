@@ -53,7 +53,18 @@ namespace GildedRoseTests.Unit.UI
 
             removeButton.PerformClick();
 
-            userRequestListenerMock.Verify(listener => listener.RemovedItemFromInventory(item.Name), Times.Once);
+            userRequestListenerMock.Verify(listener => listener.RemoveItemFromInventory(item), Times.Once);
+        }
+
+        [Fact]
+        public void RemoveItemWhenRequested()
+        {
+            var anItem = new Item("anItem");
+            tableModel.NewItemAdded(anItem);
+
+            tableModel.ItemRemoved(anItem);
+
+            Assert.Equal(0, tableModel.RowCount);
         }
     }
 }
