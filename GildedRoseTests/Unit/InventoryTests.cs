@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace GildedRoseTests.Unit
 {
-    public class InventoryTableModelTests
+    public class InventoryTests
     {
         Inventory inventory = new();
         private Mock<InventoryListener> inventoryListenerMock = new Mock<InventoryListener>();
 
-        public InventoryTableModelTests()
+        public InventoryTests()
         {
             inventory.AddInventoryListener(inventoryListenerMock.Object);
         }
