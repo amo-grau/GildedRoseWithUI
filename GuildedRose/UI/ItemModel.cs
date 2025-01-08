@@ -10,12 +10,10 @@ namespace GuildedRose.UI
     internal class ItemModel
     {
         public readonly IReadOnlyDictionary<DisplayedProperties, Control> displayedProperties;
-        private IReadOnlyCollection<UserRequestListener> listeners = new List<UserRequestListener>();
         private Item modeledItem;
 
-        private ItemModel(string name, string sellIn, IReadOnlyCollection<UserRequestListener> listeners)
+        private ItemModel(string name, string sellIn)
         {
-            this.listeners = listeners;
             var removeButton = new Button() { Name = name + "RemoveButton", Text = "Remove", AutoSize = true };
             removeButton.Click += (_, _) => NotifyListeners();
 
@@ -30,19 +28,21 @@ namespace GuildedRose.UI
             modeledItem = new Item(name) with { SellIn = int.Parse(sellIn) };
         }
 
-        private ItemModel(Item item, IReadOnlyCollection<UserRequestListener> listeners) : this(item.Name, item.SellIn.ToString(), listeners) { }
+        private ItemModel(Item item) : this(item.Name, item.SellIn.ToString()) { }
 
-        public static ItemModel From(Item item, IReadOnlyCollection<UserRequestListener> listeners)
-        {
-            return new ItemModel(item, listeners);
-        }
+        public IReadOnlyCollection<UserRequestListener> Listeners { private get;  set; } = new List<UserRequestListener>();
 
-        public void NotifyListeners()
+        private void NotifyListeners()
         {
-            foreach (var listener in listeners)
+            foreach (var listener in Listeners)
             {
                 listener.RemoveItemFromInventory(modeledItem);
             }
+        }
+
+        public static ItemModel From(Item item)
+        {
+            return new ItemModel(item);
         }
     }
 }

@@ -21,7 +21,10 @@ namespace GuildedRose.UI
 
         public void ItemAdded(Item item)
         {
-            foreach ((var displayedProperty, var control) in ItemModel.From(item, listeners).displayedProperties)
+            var itemModel = ItemModel.From(item);
+            itemModel.Listeners = listeners;
+
+            foreach ((var displayedProperty, var control) in itemModel.displayedProperties)
             {
                 Controls.Add(control, (int)displayedProperty, RowCount); // todo: it could maybe be done with a list without using the enum
             }
