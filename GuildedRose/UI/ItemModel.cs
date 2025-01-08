@@ -18,7 +18,7 @@ namespace GuildedRose.UI
             {
                 { ItemProperties.Name, new TextBox { Name = item.Name, Text = item.Name, ReadOnly = true } },
                 { ItemProperties.SellIn, new TextBox { Text = item.SellIn.ToString(), ReadOnly = true } },
-                { ItemProperties.RemoveButton, RemoveButton(item.Name) }
+                { ItemProperties.RemoveButton, CreateRemoveButton(item.Name) }
             };
 
             modeledItem = item;
@@ -27,7 +27,7 @@ namespace GuildedRose.UI
         public IReadOnlyDictionary<ItemProperties, Control> DisplayedProperties { get; }
         public IReadOnlyCollection<UserRequestListener> RemoveButtonListeners { private get;  set; } = new List<UserRequestListener>();
 
-        private Button RemoveButton(string itemName)
+        private Button CreateRemoveButton(string itemName)
         {
             var removeButton = new Button() { Name = itemName + "RemoveButton", Text = "Remove", AutoSize = true };
             removeButton.Click += (_, _) => NotifyListeners();
