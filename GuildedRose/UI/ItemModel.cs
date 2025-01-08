@@ -12,20 +12,19 @@ namespace GuildedRose.UI
     {
         private Item modeledItem;
 
-        private ItemModel(string name, string sellIn)
+        private ItemModel(Item item)
         {
             DisplayedProperties = new Dictionary<ItemProperties, Control>()
             {
-                { ItemProperties.Name, new TextBox { Name = name, Text = name, ReadOnly = true } },
-                { ItemProperties.SellIn, new TextBox { Text = sellIn, ReadOnly = true } },
-                { ItemProperties.RemoveButton, RemoveButton(name) }
+                { ItemProperties.Name, new TextBox { Name = item.Name, Text = item.Name, ReadOnly = true } },
+                { ItemProperties.SellIn, new TextBox { Text = item.SellIn.ToString(), ReadOnly = true } },
+                { ItemProperties.RemoveButton, RemoveButton(item.Name) }
             };
 
-            modeledItem = new Item(name) with { SellIn = int.Parse(sellIn) };
+            modeledItem = item;
         }
 
         public IReadOnlyDictionary<ItemProperties, Control> DisplayedProperties { get; }
-
         public IReadOnlyCollection<UserRequestListener> RemoveButtonListeners { private get;  set; } = new List<UserRequestListener>();
 
         private Button RemoveButton(string itemName)
@@ -45,7 +44,7 @@ namespace GuildedRose.UI
 
         public static ItemModel From(Item item)
         {
-            return new ItemModel(item.Name, item.SellIn.ToString());
+            return new ItemModel(item);
         }
     }
 }
