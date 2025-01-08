@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace GuildedRose.UI
 {
@@ -13,6 +14,15 @@ namespace GuildedRose.UI
             ColumnCount = columns;
         }
 
+        public void AddRow(IDictionary<int, Control> controls)
+        {
+            foreach ((var displayedProperty, var control) in controls)
+            {
+                Controls.Add(control, displayedProperty, RowCount);
+            }
 
+            RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
+            RowCount++;
+        }
     }
 }

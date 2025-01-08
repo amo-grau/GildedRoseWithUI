@@ -28,17 +28,6 @@ namespace GuildedRose.UI
             AddRow(controls);
         }
 
-        private void AddRow(IDictionary<int, Control> controls)
-        {
-            foreach ((var displayedProperty, var control) in controls)
-            {
-                Controls.Add(control, displayedProperty, RowCount);
-            }
-
-            RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
-            RowCount++;
-        }
-
         public Item GetItemAt(int row)
         {
             var controlsText = GetControlsAt(row).Select(control => control.Text).ToList();
