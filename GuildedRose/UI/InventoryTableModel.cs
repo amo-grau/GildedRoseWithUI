@@ -41,68 +41,10 @@ namespace GuildedRose.UI
             listeners = listeners.Append(listener).ToArray();
         }
 
-        private IEnumerable<Control> GetControlsAt(int rowIndex)
-        {
-            foreach (Control control in Controls)
-            {
-                if (GetRow(control) == rowIndex)
-                {
-                    yield return control;
-                }
-            }
-        }
-
         public void ItemRemoved(Item item)
         {
-            var itemNameControl = Controls.Find(item.Name, false).First();
-            var itemRow = GetRow(itemNameControl);
-
+            int itemRow = GetRow(item.Name);
             RemoveRowAt(itemRow);
-        }
-
-        private void RemoveRowAt(int row)
-        {
-            RemoveControlsAt(row);
-            ShiftFollowingControls(row);
-            RemoveLastRow(row);
-            RowCount--;
-        }
-
-        private void RemoveLastRow(int row)
-        {
-            if (RowStyles.Count > row)
-            {
-                RowStyles.RemoveAt(row);
-            }
-        }
-
-        private void ShiftFollowingControls(int row)
-        {
-            for (int i = row + 1; i < RowCount; i++)
-            {
-                for (int j = 0; j < ColumnCount; j++)
-                {
-                    var control = GetControlFromPosition(j, i);
-                    if (control != null)
-                    {
-                        SetRow(control, i - 1);
-                    }
-                }
-            }
-        }
-
-        private void RemoveControlsAt(int row)
-        {
-            for (int i = ColumnCount - 1; i >= 0; i--)
-            {
-                var control = GetControlFromPosition(i, row);
-
-                if (control != null)
-                {
-                    Controls.Remove(control);
-                    control.Dispose();
-                }
-            }
         }
     }
 }
