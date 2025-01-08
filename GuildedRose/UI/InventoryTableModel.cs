@@ -16,7 +16,7 @@ namespace GuildedRose.UI
 
         public InventoryTableModel()
         {
-            ColumnCount = Enum.GetNames(typeof(DisplayedProperties)).Length;
+            ColumnCount = Enum.GetNames(typeof(ItemProperties)).Length;
         }
 
         public void ItemAdded(Item item)
@@ -24,7 +24,7 @@ namespace GuildedRose.UI
             var itemModel = ItemModel.From(item);
             itemModel.RemoveButtonListeners = listeners;
 
-            foreach ((var displayedProperty, var control) in itemModel.displayedProperties)
+            foreach ((var displayedProperty, var control) in itemModel.DisplayedProperties)
             {
                 Controls.Add(control, (int)displayedProperty, RowCount); // todo: it could maybe be done with a list without using the enum
             }
@@ -37,8 +37,8 @@ namespace GuildedRose.UI
         {
             var controlsText = GetControlsAt(row).Select(control => control.Text).ToList();
 
-            return new Item(controlsText[(int)DisplayedProperties.Name])
-                    with { SellIn = int.Parse(controlsText[(int)DisplayedProperties.SellIn]) };
+            return new Item(controlsText[(int)ItemProperties.Name])
+                    with { SellIn = int.Parse(controlsText[(int)ItemProperties.SellIn]) };
         }
 
         public void AddListener(UserRequestListener listener) 

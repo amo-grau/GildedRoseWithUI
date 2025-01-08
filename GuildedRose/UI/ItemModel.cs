@@ -10,20 +10,21 @@ namespace GuildedRose.UI
 {
     internal class ItemModel
     {
-        public readonly IReadOnlyDictionary<DisplayedProperties, Control> displayedProperties;
         private Item modeledItem;
 
         private ItemModel(string name, string sellIn)
         {
-            displayedProperties = new Dictionary<DisplayedProperties, Control>()
+            DisplayedProperties = new Dictionary<ItemProperties, Control>()
             {
-                { DisplayedProperties.Name, new TextBox { Name = name, Text = name, ReadOnly = true } },
-                { DisplayedProperties.SellIn, new TextBox { Text = sellIn, ReadOnly = true } },
-                { DisplayedProperties.RemoveButton, RemoveButton(name) }
+                { ItemProperties.Name, new TextBox { Name = name, Text = name, ReadOnly = true } },
+                { ItemProperties.SellIn, new TextBox { Text = sellIn, ReadOnly = true } },
+                { ItemProperties.RemoveButton, RemoveButton(name) }
             };
 
             modeledItem = new Item(name) with { SellIn = int.Parse(sellIn) };
         }
+
+        public IReadOnlyDictionary<ItemProperties, Control> DisplayedProperties { get; }
 
         public IReadOnlyCollection<UserRequestListener> RemoveButtonListeners { private get;  set; } = new List<UserRequestListener>();
 
