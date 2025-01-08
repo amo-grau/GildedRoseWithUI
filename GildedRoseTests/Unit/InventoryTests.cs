@@ -25,7 +25,7 @@ namespace GildedRoseTests.Unit
             inventory.AddItemToInventory(item);
 
             Assert.Equal(item, inventory.GetItemByName(item.Name));
-            inventoryListenerMock.Verify(listener => listener.NewItemAdded(item), Times.Once);
+            inventoryListenerMock.Verify(listener => listener.ItemAdded(item), Times.Once);
         }
         
         [Fact]

@@ -19,7 +19,7 @@ namespace GuildedRose.UI
             ColumnCount = Enum.GetNames(typeof(DisplayedItemProperties)).Length;
         }
 
-        public void NewItemAdded(Item item)
+        public void ItemAdded(Item item)
         {
             foreach ((var displayedProperty, var control) in ItemModel.From(item, listeners).displayedProperties)
             {

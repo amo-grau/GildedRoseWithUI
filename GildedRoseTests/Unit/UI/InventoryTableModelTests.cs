@@ -25,7 +25,7 @@ namespace GildedRoseTests.Unit.UI
         {
             var anItem = new Item("anItem");
             
-            tableModel.NewItemAdded(anItem);
+            tableModel.ItemAdded(anItem);
 
             Assert.Equal(anItem, tableModel.GetItemAt(0));
             Assert.Equal(1, tableModel.RowCount);
@@ -37,7 +37,7 @@ namespace GildedRoseTests.Unit.UI
             foreach (var index  in Enumerable.Range(0, 5))
             {
                 var item = new Item(index.ToString());
-                tableModel.NewItemAdded(item);
+                tableModel.ItemAdded(item);
 
                 Assert.Equal(item, tableModel.GetItemAt(index));
             }
@@ -47,7 +47,7 @@ namespace GildedRoseTests.Unit.UI
         public void NotifiesListenersWhenRemoveButtonClicked()
         {
             var item = new Item("anItem");
-            tableModel.NewItemAdded(item);
+            tableModel.ItemAdded(item);
             var removeButton = tableModel.Controls.Find($"{item.Name}RemoveButton", false).First() as Button 
                 ?? throw new ArgumentNullException();
 
@@ -60,7 +60,7 @@ namespace GildedRoseTests.Unit.UI
         public void RemoveItemWhenRequested()
         {
             var anItem = new Item("anItem");
-            tableModel.NewItemAdded(anItem);
+            tableModel.ItemAdded(anItem);
 
             tableModel.ItemRemoved(anItem);
 

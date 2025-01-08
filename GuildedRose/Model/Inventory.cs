@@ -16,7 +16,7 @@ namespace GuildedRose.Model
         public void AddItemToInventory(Item item)
         {
             items.Add(item);
-            listeners.ForEach(listener => listener.NewItemAdded(item));
+            listeners.ForEach(listener => listener.ItemAdded(item));
         }
 
         public void RemoveItemFromInventory(Item item)
