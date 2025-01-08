@@ -16,7 +16,7 @@ namespace GuildedRose.UI
 
         public InventoryTableModel()
         {
-            ColumnCount = Enum.GetNames(typeof(DisplayedItemProperties)).Length;
+            ColumnCount = Enum.GetNames(typeof(DisplayedProperties)).Length;
         }
 
         public void ItemAdded(Item item)
@@ -34,8 +34,8 @@ namespace GuildedRose.UI
         {
             var controlsText = GetControlsAt(row).Select(control => control.Text).ToList();
 
-            return new Item(controlsText[(int)DisplayedItemProperties.Name])
-                    with { SellIn = int.Parse(controlsText[(int)DisplayedItemProperties.SellIn]) };
+            return new Item(controlsText[(int)DisplayedProperties.Name])
+                    with { SellIn = int.Parse(controlsText[(int)DisplayedProperties.SellIn]) };
         }
 
         public void AddListener(UserRequestListener listener) 
@@ -92,52 +92,6 @@ namespace GuildedRose.UI
 
             // Step 4: Update RowCount
             RowCount--;
-        }
-
-        private enum DisplayedItemProperties
-        {
-            Name = 0,
-            SellIn,
-            RemoveButton
-        }
-
-        private record ItemModel
-        {
-            public readonly IReadOnlyDictionary<DisplayedItemProperties, Control> displayedProperties;
-            private IReadOnlyCollection<UserRequestListener> listeners = new List<UserRequestListener>();
-            private Item modeledItem;
-
-            private ItemModel(string name, string sellIn, IReadOnlyCollection<UserRequestListener> listeners)
-            {
-                this.listeners = listeners;
-                var removeButton = new Button() { Name = name + "RemoveButton", Text = "Remove", AutoSize = true };
-                removeButton.Click += (_,_) => NotifyListeners();
-
-                displayedProperties =
-                    new Dictionary<DisplayedItemProperties, Control>()
-                    {
-                        { DisplayedItemProperties.Name, new TextBox { Name = name, Text = name, ReadOnly = true } },
-                        { DisplayedItemProperties.SellIn, new TextBox { Text = sellIn, ReadOnly = true } },
-                        { DisplayedItemProperties.RemoveButton, removeButton }
-                    };
-
-                modeledItem = new Item(name) with { SellIn = int.Parse(sellIn) };
-            }
-
-            private ItemModel(Item item, IReadOnlyCollection<UserRequestListener> listeners) : this(item.Name, item.SellIn.ToString(), listeners) { }
-
-            public static ItemModel From(Item item, IReadOnlyCollection<UserRequestListener> listeners)
-            {
-                return new ItemModel(item, listeners);
-            }
-
-            public void NotifyListeners()
-            {
-                foreach (var listener in listeners)
-                {
-                    listener.RemoveItemFromInventory(modeledItem);
-                }
-            }
         }
     }
 }
