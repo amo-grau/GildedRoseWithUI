@@ -22,7 +22,7 @@ namespace GuildedRose.UI
         public void ItemAdded(Item item)
         {
             var itemModel = ItemModel.From(item);
-            itemModel.Listeners = listeners;
+            itemModel.RemoveButtonListeners = listeners;
 
             foreach ((var displayedProperty, var control) in itemModel.displayedProperties)
             {

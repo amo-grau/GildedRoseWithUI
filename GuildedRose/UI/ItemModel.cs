@@ -28,11 +28,11 @@ namespace GuildedRose.UI
             modeledItem = new Item(name) with { SellIn = int.Parse(sellIn) };
         }
 
-        public IReadOnlyCollection<UserRequestListener> Listeners { private get;  set; } = new List<UserRequestListener>();
+        public IReadOnlyCollection<UserRequestListener> RemoveButtonListeners { private get;  set; } = new List<UserRequestListener>();
 
         private void NotifyListeners()
         {
-            foreach (var listener in Listeners)
+            foreach (var listener in RemoveButtonListeners)
             {
                 listener.RemoveItemFromInventory(modeledItem);
             }
