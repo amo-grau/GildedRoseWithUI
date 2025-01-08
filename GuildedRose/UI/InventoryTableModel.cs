@@ -59,22 +59,30 @@ namespace GuildedRose.UI
 
         public void ItemRemoved(Item item)
         {
-            var nameControl = Controls.Find(item.Name, false).First();
-            var row = GetRow(nameControl);
+            var itemNameControl = Controls.Find(item.Name, false).First();
+            var itemRow = GetRow(itemNameControl);
 
-            // Step 1: Remove controls in the specified row
-            for (int i = ColumnCount - 1; i >= 0; i--)
+            RemoveRowAt(itemRow);
+        }
+
+        private void RemoveRowAt(int row)
+        {
+            RemoveControlsAt(row);
+            ShiftFollowingControls(row);
+            RemoveLastRow(row);
+            RowCount--;
+        }
+
+        private void RemoveLastRow(int row)
+        {
+            if (RowStyles.Count > row)
             {
-                var control = GetControlFromPosition(i, row);
-
-                if (control != null)
-                {
-                    Controls.Remove(control);
-                    control.Dispose();
-                }
+                RowStyles.RemoveAt(row);
             }
+        }
 
-            // Step 2: Shift controls in rows below the removed row up by one
+        private void ShiftFollowingControls(int row)
+        {
             for (int i = row + 1; i < RowCount; i++)
             {
                 for (int j = 0; j < ColumnCount; j++)
@@ -86,15 +94,20 @@ namespace GuildedRose.UI
                     }
                 }
             }
+        }
 
-            // Step 3: Remove the last row style
-            if (RowStyles.Count > row)
+        private void RemoveControlsAt(int row)
+        {
+            for (int i = ColumnCount - 1; i >= 0; i--)
             {
-                RowStyles.RemoveAt(row);
-            }
+                var control = GetControlFromPosition(i, row);
 
-            // Step 4: Update RowCount
-            RowCount--;
+                if (control != null)
+                {
+                    Controls.Remove(control);
+                    control.Dispose();
+                }
+            }
         }
     }
 }
