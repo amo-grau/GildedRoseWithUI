@@ -28,8 +28,6 @@ namespace GuildedRose.UI
             modeledItem = new Item(name) with { SellIn = int.Parse(sellIn) };
         }
 
-        private ItemModel(Item item) : this(item.Name, item.SellIn.ToString()) { }
-
         public IReadOnlyCollection<UserRequestListener> Listeners { private get;  set; } = new List<UserRequestListener>();
 
         private void NotifyListeners()
@@ -42,7 +40,7 @@ namespace GuildedRose.UI
 
         public static ItemModel From(Item item)
         {
-            return new ItemModel(item);
+            return new ItemModel(item.Name, item.SellIn.ToString());
         }
     }
 }
