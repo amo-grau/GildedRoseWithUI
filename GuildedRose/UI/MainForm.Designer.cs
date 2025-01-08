@@ -32,7 +32,7 @@ namespace GuildedRose
         {
             itemTextBox = new TextBox();
             addItemButton = new Button();
-            itemsTable = new InventoryTableModel();
+            itemsTable = new TableLayoutControl(Enum.GetNames(typeof(ItemProperties)).Length);
             SuspendLayout();
             // 
             // itemTextBox
@@ -87,6 +87,6 @@ namespace GuildedRose
 
         private TextBox itemTextBox;
         private Button addItemButton;
-        private InventoryTableModel itemsTable;
+        private TableLayoutControl itemsTable;
     }
 }

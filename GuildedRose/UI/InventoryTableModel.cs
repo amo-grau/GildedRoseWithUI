@@ -10,11 +10,17 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace GuildedRose.UI
 {
-    public class InventoryTableModel : TableLayoutControl, InventoryListener
+    public class InventoryTableModel : InventoryListener
     {       
         private IReadOnlyCollection<UserRequestListener> listeners = new List<UserRequestListener>();
+        private TableLayoutControl table;
 
-        public InventoryTableModel() : base(Enum.GetNames(typeof(ItemProperties)).Length) { }
+        public InventoryTableModel(TableLayoutControl table)
+        {
+            this.table = table;
+        }
+
+        public int ItemCount { get => table.RowCount; }
 
         public void ItemAdded(Item item)
         {
@@ -25,15 +31,21 @@ namespace GuildedRose.UI
                         kvp => kvp.Value     // Keep the value (Control) as is
                 );
 
-            AddRow(controls);
+            table.AddRow(controls);
         }
 
         public Item GetItemAt(int row)
         {
-            var controlsText = GetControlsAt(row).Select(control => control.Text).ToList();
+            var controlsText = table.GetControlsAt(row).Select(control => control.Text).ToList();
 
             return new Item(controlsText[(int)ItemProperties.Name])
                     with { SellIn = int.Parse(controlsText[(int)ItemProperties.SellIn]) };
+        }
+
+        public Button RemoveButtonFor(Item item)
+        {
+            return table.Controls.Find($"{item.Name}RemoveButton", false).First() as Button
+                ?? throw new ArgumentNullException();
         }
 
         public void AddListener(UserRequestListener listener) 
@@ -43,8 +55,8 @@ namespace GuildedRose.UI
 
         public void ItemRemoved(Item item)
         {
-            int itemRow = GetRow(item.Name);
-            RemoveRowAt(itemRow);
+            int itemRow = table.GetRow(item.Name);
+            table.RemoveRowAt(itemRow);
         }
     }
 }

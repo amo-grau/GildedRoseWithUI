@@ -26,7 +26,7 @@ namespace GildedRoseTests.Unit.UI
         [Fact]
         public void TableStartsWithoutItems()
         {
-            var table = form.Controls.Find("itemsTable", true).First() as InventoryTableModel;
+            var table = form.Controls.Find("itemsTable", true).First() as TableLayoutControl;
             
             Assert.NotNull(table);
             Assert.Equal(0, table.RowCount);

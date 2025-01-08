@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuildedRose.UI
 {
-    internal enum ItemProperties
+    public enum ItemProperties
     {
         Name = 0,
         SellIn,

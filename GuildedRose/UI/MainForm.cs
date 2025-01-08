@@ -10,11 +10,14 @@ namespace GuildedRose
         public MainForm(Inventory inventory)
         {
             InitializeComponent();
-            inventory.AddInventoryListener(itemsTable);
+            InventoryModel = new InventoryTableModel(itemsTable);
+            inventory.AddInventoryListener(InventoryModel);
             
             AddListener(inventory);
-            itemsTable.AddListener(inventory);
+            InventoryModel.AddListener(inventory);
         }
+
+        public InventoryTableModel InventoryModel { get; }
 
         public void AddListener(UserRequestListener listener)
         {

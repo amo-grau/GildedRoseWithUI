@@ -40,16 +40,13 @@ namespace GildedRoseTests.EndToEnd
 
         public void showIsListed(Item item)
         {
-            var itemTable = FindControl<InventoryTableModel>("itemsTable");
-            Assert.Equal(item, itemTable.GetItemAt(itemTable.RowCount - 1));
+           Assert.Equal(item, TableModel().GetItemAt(TableModel().ItemCount - 1));
         }
 
         public void showIsNotListed(Item item)
         {
-            var itemTable = FindControl<InventoryTableModel>("itemsTable");
-
-            var items = Enumerable.Range(0, itemTable.RowCount)
-                .Select(itemTable.GetItemAt)
+            var items = Enumerable.Range(0, TableModel().ItemCount)
+                .Select(TableModel().GetItemAt)
                 .ToList();
 
             Assert.DoesNotContain(item, items);
@@ -58,6 +55,12 @@ namespace GildedRoseTests.EndToEnd
         public void Close()
         {
             form.Close();
+        }
+
+        private InventoryTableModel TableModel()
+        {
+            var itemTableForm = FindControl<TableLayoutControl>("itemsTable");
+            return new InventoryTableModel(itemTableForm);
         }
 
         private T FindControl<T>(string name) where T : Control

@@ -12,7 +12,7 @@ namespace GildedRoseTests.Unit.UI
 {
     public class InventoryTableModelTests
     {
-        private readonly InventoryTableModel tableModel = new ();
+        private readonly InventoryTableModel tableModel = new (new TableLayoutControl(Enum.GetNames(typeof(ItemProperties)).Length));
         private Mock<UserRequestListener> userRequestListenerMock = new ();
 
         public InventoryTableModelTests()
@@ -28,7 +28,7 @@ namespace GildedRoseTests.Unit.UI
             tableModel.ItemAdded(anItem);
 
             Assert.Equal(anItem, tableModel.GetItemAt(0));
-            Assert.Equal(1, tableModel.RowCount);
+            Assert.Equal(1, tableModel.ItemCount);
         }
 
         [Fact]
@@ -48,10 +48,8 @@ namespace GildedRoseTests.Unit.UI
         {
             var item = new Item("anItem");
             tableModel.ItemAdded(item);
-            var removeButton = tableModel.Controls.Find($"{item.Name}RemoveButton", false).First() as Button 
-                ?? throw new ArgumentNullException();
 
-            removeButton.PerformClick();
+            tableModel.RemoveButtonFor(item).PerformClick();
 
             userRequestListenerMock.Verify(listener => listener.RemoveItemFromInventory(item), Times.Once);
         }
@@ -64,7 +62,7 @@ namespace GildedRoseTests.Unit.UI
 
             tableModel.ItemRemoved(anItem);
 
-            Assert.Equal(0, tableModel.RowCount);
+            Assert.Equal(0, tableModel.ItemCount);
         }
     }
 }
