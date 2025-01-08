@@ -10,23 +10,29 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace GuildedRose.UI
 {
-    public class InventoryTableModel : TableLayoutPanel, InventoryListener
+    public class InventoryTableModel : TableLayoutControl, InventoryListener
     {       
         private IReadOnlyCollection<UserRequestListener> listeners = new List<UserRequestListener>();
 
-        public InventoryTableModel()
-        {
-            ColumnCount = Enum.GetNames(typeof(ItemProperties)).Length;
-        }
+        public InventoryTableModel() : base(Enum.GetNames(typeof(ItemProperties)).Length) { }
 
         public void ItemAdded(Item item)
         {
             var itemModel = ItemModel.From(item);
             itemModel.RemoveButtonListeners = listeners;
+            var controls = itemModel.DisplayedProperties.ToDictionary(
+                        kvp => (int)kvp.Key, // Convert the key (ItemProperties) to an int
+                        kvp => kvp.Value     // Keep the value (Control) as is
+                );
 
-            foreach ((var displayedProperty, var control) in itemModel.DisplayedProperties)
+            AddRow(controls);
+        }
+
+        private void AddRow(IDictionary<int, Control> controls)
+        {
+            foreach ((var displayedProperty, var control) in controls)
             {
-                Controls.Add(control, (int)displayedProperty, RowCount); // todo: it could maybe be done with a list without using the enum
+                Controls.Add(control, displayedProperty, RowCount);
             }
 
             RowStyles.Insert(0, new RowStyle(SizeType.AutoSize));
